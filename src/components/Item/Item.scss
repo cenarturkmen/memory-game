@@ -1,0 +1,19 @@
+.parent {
+  width: 250px;
+  height: 400px;
+}
+
+.parent[data-isOpen="true"] {
+  width: 250px;
+  height: 400px;
+}
+
+.child {
+  background: #201d1d;
+  width: 250px;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1rem;
+}
