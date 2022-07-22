@@ -3,9 +3,14 @@ import { useState } from "react";
 
 import "./Table.scss";
 import { Cell } from "../Cell/Cell";
+import { generateGameData } from "../../utils/generateGameData";
 
-export const Table: React.FC = () => {
-  const [cells, setCells] = useState(fakeData);
+interface TableProps {
+  size: number;
+}
+
+export const Table: React.FC<TableProps> = ({ size }) => {
+  const [cells, setCells] = useState(generateGameData(size));
   const [clickCounter, setClickCounter] = useState(0);
 
   const cartClickHandler = (index: number) => {
@@ -29,7 +34,7 @@ export const Table: React.FC = () => {
               cells[index].isOpen = false;
               cell.isOpen = false;
               cell.isClicked = false;
-              
+
               setClickCounter(0);
               setCells(newCells);
             }, 500);
@@ -41,7 +46,6 @@ export const Table: React.FC = () => {
               setClickCounter(0);
               setCells(newCells);
             }, 500);
-
           }
         }
       });
@@ -49,49 +53,20 @@ export const Table: React.FC = () => {
   };
 
   return (
-    <div className="table">
+    <div className={`table table-${size}`}>
       {cells.map((cell, index: number) => (
         <Cell
           key={index}
           index={index}
           value={cell.value}
+          img={cell.img}
           isOpen={cell.isOpen}
           isClicked={cell.isClicked}
           isDone={cell.isDone}
+          size={size}
           onClick={(index) => cartClickHandler(index)}
         />
       ))}
     </div>
   );
 };
-
-const fakeData = [
-  {
-    id: 1,
-    value: "1",
-    isOpen: false,
-    isClicked: false,
-    isDone: false,
-  },
-  {
-    id: 2,
-    value: "2",
-    isOpen: false,
-    isClicked: false,
-    isDone: false,
-  },
-  {
-    id: 3,
-    value: "2",
-    isOpen: false,
-    isClicked: false,
-    isDone: false,
-  },
-  {
-    id: 4,
-    value: "1",
-    isOpen: false,
-    isClicked: false,
-    isDone: false,
-  },
-];
