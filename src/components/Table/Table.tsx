@@ -12,30 +12,40 @@ export const Table: React.FC = () => {
     const newCells = [...cells];
     newCells[index].isOpen = !newCells[index].isOpen;
     setCells(newCells);
-
     setClickCounter(clickCounter + 1);
 
-    console.log(clickCounter);
-    if (clickCounter === 1) {
+    if (clickCounter === 0) {
+      newCells[index].isClicked = true;
+      setCells(newCells);
+    } else if (clickCounter === 1) {
       const newCells = [...cells];
-      const lastIndex = index;
-      const lastValue = newCells[lastIndex].value;
       newCells.forEach((cell) => {
-        if (cell.id !== lastIndex && cell.value === lastValue) {
-          cell.isDone = true;
-          cell.isOpen = false;
+        if (cell.isClicked) {
+          let clickedCellValue = cell.value;
+          if (clickedCellValue === newCells[index].value) {
+            setTimeout(() => {
+              cell.isDone = true;
+              newCells[index].isDone = true;
+              cells[index].isOpen = false;
+              cell.isOpen = false;
+              cell.isClicked = false;
+              
+              setClickCounter(0);
+              setCells(newCells);
+            }, 500);
+          } else {
+            setTimeout(() => {
+              newCells[index].isOpen = false;
+              cell.isOpen = false;
+
+              setClickCounter(0);
+              setCells(newCells);
+            }, 500);
+
+          }
         }
       });
     }
-
-    if (clickCounter === 2) {
-      setClickCounter(0);
-      const newCells = [...cells];
-      newCells.forEach((cell) => {
-        cell.isOpen = false;
-      });
-    }
-
   };
 
   return (
@@ -46,6 +56,7 @@ export const Table: React.FC = () => {
           index={index}
           value={cell.value}
           isOpen={cell.isOpen}
+          isClicked={cell.isClicked}
           isDone={cell.isDone}
           onClick={(index) => cartClickHandler(index)}
         />
@@ -59,24 +70,28 @@ const fakeData = [
     id: 1,
     value: "1",
     isOpen: false,
+    isClicked: false,
     isDone: false,
   },
   {
     id: 2,
     value: "2",
     isOpen: false,
+    isClicked: false,
     isDone: false,
   },
   {
     id: 3,
     value: "2",
     isOpen: false,
+    isClicked: false,
     isDone: false,
   },
   {
     id: 4,
     value: "1",
     isOpen: false,
+    isClicked: false,
     isDone: false,
   },
 ];

@@ -7,6 +7,7 @@ interface CellProps {
   index: number;
   value: string;
   isOpen: boolean;
+  isClicked: boolean;
   isDone: boolean;
   onClick: (index: number) => void;
 }
@@ -15,6 +16,7 @@ export const Cell: React.FC<CellProps> = ({
   index,
   value,
   isOpen,
+  isClicked,
   isDone,
   onClick,
 }) => {
