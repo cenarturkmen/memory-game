@@ -3,7 +3,7 @@ import ThemeProvider from "@mui/material/styles/ThemeProvider";
 
 import "./App.scss";
 import { theme } from "./utils/theme";
-import { Layout } from "./utils/Layout";
+import { Layout } from "./components/Layout/Layout";
 import { Home } from "./pages/Home";
 
 function App() {
