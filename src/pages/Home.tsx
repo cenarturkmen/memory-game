@@ -5,7 +5,7 @@ import { Table } from "../components/Table/Table";
 import { Button, Typography } from "@mui/material";
 
 export const Home: React.FC = () => {
-  const [tableSize, setTableSize] = useState(4);
+  const [tableSize, setTableSize] = useState(16);
   const [isGameStarted, setIsGameStarted] = useState(false);
 
   console.log(tableSize);
