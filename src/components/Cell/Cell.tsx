@@ -27,7 +27,7 @@ export const Cell: React.FC<CellProps> = ({
   return (
     <div className={`parent parent-${size}`} onClick={() => onClick(index)}>
       <motion.div
-        className={`child child-${size}`}
+        className={`child child-${size}` + (isDone ? " done" : "")}
         whileHover={{
           scale: 1.1,
         }}
@@ -38,22 +38,46 @@ export const Cell: React.FC<CellProps> = ({
             <Typography variant="h2" align="center" sx={{ color: "white" }}>
               {value}
             </Typography>
-            <img className={`openImage openImage-${size}`} src={img} alt={value}></img>
+            <img
+              className={`openImage openImage-${size}`}
+              src={img}
+              alt={value}
+            ></img>
           </div>
         ) : (
           ""
         )}
         {!isOpen && !isDone ? (
-          <Typography variant="h2" sx={{ color: "white" }}>
-            closed
-          </Typography>
+          <motion.div
+            className="closedInner"
+            whileHover={{
+              scale: 1.1,
+              borderRadius: "80%",
+            }}
+          >
+            {" "}
+            <motion.div
+              className="closedInner2"
+              whileHover={{
+                scale: 1.2,
+                borderRadius: "80%",
+              }}
+            ></motion.div>
+          </motion.div>
         ) : (
           ""
         )}
         {isDone && (
-          <Typography variant="h2" sx={{ color: "white" }}>
-            done
-          </Typography>
+          <div>
+            <Typography variant="h2" align="center" sx={{ color: "white" }}>
+              {value}
+            </Typography>
+            <img
+              className={`openImage openImage-${size}`}
+              src={img}
+              alt={value}
+            ></img>
+          </div>
         )}
       </motion.div>
     </div>
