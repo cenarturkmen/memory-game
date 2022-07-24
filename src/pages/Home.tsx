@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import Slider from "@mui/material/Slider";
 
+import "./Home.scss";
 import { Table } from "../components/Table/Table";
 import { Button, Typography } from "@mui/material";
+import { HowToPlay } from "../components/HowToPlay/HowToPlay";
 
 export const Home: React.FC = () => {
   const [tableSize, setTableSize] = useState(16);
@@ -10,29 +12,54 @@ export const Home: React.FC = () => {
 
   console.log(tableSize);
   return (
-    <div>
-      <Button
-        color="primary"
-        variant="contained"
-        onClick={() => setIsGameStarted(true)}
-      >
-        {" "}
-        Create a game
-      </Button>
-      <Typography variant="h4">Select a table size:</Typography>
-      <Slider
-        aria-label="Temperature"
-        defaultValue={marks[1].value}
-        getAriaValueText={valuetext}
-        step={null}
-        marks={marks}
-        min={marks[0].value}
-        max={marks[marks.length - 1].value}
-        onChange={(event: any, value) => {
-          setTableSize(value as number);
-        }}
-      />
-      {isGameStarted && <Table size={tableSize} />}
+    <div className="home">
+      {!isGameStarted ? (
+        <>
+          <Typography sx={{ marginTop: "5rem" }} variant="h3" color="primary">
+            Select a table size:
+          </Typography>
+          <Slider
+            aria-label="Temperature"
+            defaultValue={marks[1].value}
+            getAriaValueText={valuetext}
+            step={null}
+            marks={marks}
+            min={marks[0].value}
+            max={marks[marks.length - 1].value}
+            onChange={(event: any, value) => {
+              setTableSize(value as number);
+            }}
+          />
+          <Button
+            size="large"
+            sx={{ margin: "2rem" }}
+            className="startButton"
+            color="primary"
+            variant="contained"
+            disabled={isGameStarted}
+            onClick={() => setIsGameStarted(true)}
+          >
+            Create Game
+          </Button>
+          <div className="howToPlay">
+            <HowToPlay />
+          </div>
+        </>
+      ) : (
+        <>
+          <Button
+            size="large"
+            className="backButton"
+            sx={{ position: "absolute", top: "1rem", left: "1rem" }}
+            color="secondary"
+            variant="contained"
+            onClick={() => setIsGameStarted(false)}
+          >
+            Back
+          </Button>
+          <Table size={tableSize} />
+        </>
+      )}
     </div>
   );
 };
