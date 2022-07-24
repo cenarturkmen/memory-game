@@ -5,13 +5,29 @@
 }
 
 .table-4 {
-  max-width: 60%;
-  margin-left: 20%;
+  max-width: 80%;
+  margin-left: 10%;
+  display: flex;
   flex-wrap: wrap;
 }
 
-.table-16{
-    max-width: 80%;
-    margin-left: 10%;
-    flex-wrap: wrap;
+.table-16 {
+  max-width: 100%;
+  margin-right: 0%;
+  flex-wrap: wrap;
+  display: flex;
+}
+
+.table-36 {
+  max-width: 100%;
+  margin-left: 0%;
+  flex-wrap: wrap;
+  display: flex;
+}
+
+.table-64 {
+  max-width: 100%;
+  margin-left: 0%;
+  flex-wrap: wrap;
+  display: flex;
 }
