@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useState } from "react";
 
 import "./Table.scss";
 import { Cell } from "../Cell/Cell";
 import { generateGameData } from "../../utils/generateGameData";
+import { createSecureContext } from "tls";
 
 interface TableProps {
   size: number;
@@ -12,8 +13,13 @@ interface TableProps {
 export const Table: React.FC<TableProps> = ({ size }) => {
   const [cells, setCells] = useState(generateGameData(size));
   const [clickCounter, setClickCounter] = useState(0);
+  const [tablePointer, tableSet] = useState(false);
 
   const cartClickHandler = (index: number) => {
+    tableSet(true);
+    setTimeout(() => {
+      tableSet(false);
+    }, 500);
     const newCells = [...cells];
     newCells[index].isOpen = !newCells[index].isOpen;
     setCells(newCells);
@@ -27,7 +33,11 @@ export const Table: React.FC<TableProps> = ({ size }) => {
       newCells.forEach((cell) => {
         if (cell.isClicked) {
           let clickedCellValue = cell.value;
-          if (clickedCellValue === newCells[index].value) {
+          console.log(newCells[index]);
+          if (
+            clickedCellValue === newCells[index].value &&
+            cell.id != newCells[index].id
+          ) {
             setTimeout(() => {
               cell.isDone = true;
               newCells[index].isDone = true;
@@ -42,18 +52,21 @@ export const Table: React.FC<TableProps> = ({ size }) => {
             setTimeout(() => {
               newCells[index].isOpen = false;
               cell.isOpen = false;
-
+              newCells[index].isClicked = false;
+              cell.isClicked = false;
               setClickCounter(0);
               setCells(newCells);
             }, 500);
           }
         }
       });
+    } else {
+      setClickCounter(0);
     }
   };
 
   return (
-    <div className={`table table-${size}`}>
+    <div className={`table table-${size} ${tablePointer ? "deactive" : ""}`}>
       {cells.map((cell, index: number) => (
         <Cell
           key={index}
