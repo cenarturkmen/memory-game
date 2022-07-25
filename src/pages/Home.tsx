@@ -15,6 +15,9 @@ export const Home: React.FC = () => {
     <div className="home">
       {!isGameStarted ? (
         <>
+          <Typography variant="h1" color="secondary">
+            Memory Game
+          </Typography>
           <Typography sx={{ marginTop: "5rem" }} variant="h3" color="primary">
             Select a table size:
           </Typography>

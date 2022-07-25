@@ -19,6 +19,7 @@ export const Table: React.FC<TableProps> = ({ size }) => {
     setCells(newCells);
     setClickCounter(clickCounter + 1);
 
+    console.log(clickCounter);
     if (clickCounter === 0) {
       newCells[index].isClicked = true;
       setCells(newCells);
@@ -28,6 +29,7 @@ export const Table: React.FC<TableProps> = ({ size }) => {
         if (cell.isClicked) {
           let clickedCellValue = cell.value;
           if (clickedCellValue === newCells[index].value) {
+            setClickCounter(0);
             setTimeout(() => {
               cell.isDone = true;
               newCells[index].isDone = true;
@@ -35,17 +37,17 @@ export const Table: React.FC<TableProps> = ({ size }) => {
               cell.isOpen = false;
               cell.isClicked = false;
 
-              setClickCounter(0);
               setCells(newCells);
-            }, 500);
+            }, 200);
           } else {
             setTimeout(() => {
+              setClickCounter(0);
               newCells[index].isOpen = false;
               cell.isOpen = false;
 
               setClickCounter(0);
               setCells(newCells);
-            }, 500);
+            }, 200);
           }
         }
       });
