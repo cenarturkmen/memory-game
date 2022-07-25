@@ -31,3 +31,7 @@
   flex-wrap: wrap;
   display: flex;
 }
+
+.deactive {
+  pointer-events: none;
+}
