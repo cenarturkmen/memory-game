@@ -13,10 +13,7 @@ export const generateGameData = (numOfCards: number) => {
       isDone: false,
     });
   }
-  // concat this 2 arrays into one randomly
-  const gameDataWithRandom = gameData.concat(
-    mirrorGameData.sort(() => Math.random() - 0.5)
-  );
+  const gameDataWithRandom = gameData.concat(mirrorGameData);
   return gameDataWithRandom.sort(() => Math.random() - 0.5);
 };
 
@@ -34,5 +31,5 @@ const generateGameArray = (numOfCards: number) => {
       isDone: false,
     });
   }
-  return gameData.sort(() => Math.random() - 0.5);
+  return gameData;
 };
