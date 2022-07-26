@@ -20,7 +20,7 @@ export const Table: React.FC<TableProps> = ({ size }) => {
   const cartClickHandler = (index: number) => {
     setTableDisabled(true);
     setTimeout(() => {
-      setTableDisabled(true);
+      setTableDisabled(false);
     }, 500);
     const newCells = [...cells];
     newCells[index].isOpen = !newCells[index].isOpen;
