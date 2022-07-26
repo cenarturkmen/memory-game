@@ -1,10 +1,10 @@
-import React, { useRef } from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 
 import "./Table.scss";
 import { Cell } from "../Cell/Cell";
 import { generateGameData } from "../../utils/generateGameData";
-import { createSecureContext } from "tls";
+import { EndGame } from "../EndGame/EndGame";
 
 interface TableProps {
   size: number;
@@ -14,6 +14,7 @@ export const Table: React.FC<TableProps> = ({ size }) => {
   const [cells, setCells] = useState(generateGameData(size));
   const [clickCounter, setClickCounter] = useState(0);
   const [tablePointer, tableSet] = useState(false);
+  const [isGameOver, setIsGameOver] = useState(false);
 
   const cartClickHandler = (index: number) => {
     tableSet(true);
@@ -33,10 +34,9 @@ export const Table: React.FC<TableProps> = ({ size }) => {
       newCells.forEach((cell) => {
         if (cell.isClicked) {
           let clickedCellValue = cell.value;
-          console.log(newCells[index]);
           if (
             clickedCellValue === newCells[index].value &&
-            cell.id != newCells[index].id
+            cell.id !== newCells[index].id
           ) {
             setTimeout(() => {
               cell.isDone = true;
@@ -65,21 +65,42 @@ export const Table: React.FC<TableProps> = ({ size }) => {
     }
   };
 
+  useEffect(() => {
+    const newCells = [...cells];
+    let endGameCounter = 0;
+    newCells.forEach((cell) => {
+      if (cell.isDone) {
+        endGameCounter++;
+        if (endGameCounter === size) {
+          setIsGameOver(true);
+        }
+      }
+    });
+  }, [cells, size]);
+
   return (
-    <div className={`table table-${size} ${tablePointer ? "deactive" : ""}`}>
-      {cells.map((cell, index: number) => (
-        <Cell
-          key={index}
-          index={index}
-          value={cell.value}
-          img={cell.img}
-          isOpen={cell.isOpen}
-          isClicked={cell.isClicked}
-          isDone={cell.isDone}
-          size={size}
-          onClick={(index) => cartClickHandler(index)}
-        />
-      ))}
-    </div>
+    <>
+      {!isGameOver ? (
+        <div
+          className={`table table-${size} ${tablePointer ? "deactive" : ""}`}
+        >
+          {cells.map((cell, index: number) => (
+            <Cell
+              key={index}
+              index={index}
+              value={cell.value}
+              img={cell.img}
+              isOpen={cell.isOpen}
+              isClicked={cell.isClicked}
+              isDone={cell.isDone}
+              size={size}
+              onClick={(index) => cartClickHandler(index)}
+            />
+          ))}
+        </div>
+      ) : (
+        <EndGame />
+      )}
+    </>
   );
 };
