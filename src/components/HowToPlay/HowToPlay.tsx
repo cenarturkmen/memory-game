@@ -24,7 +24,7 @@ export const HowToPlay: React.FC = ({}) => {
         2. Click on a cell to open it
       </Typography>
       <Typography variant="h6" color="secondary">
-        3. Find the matching pairs
+        3. Find the matching pairs before time runs out
       </Typography>
       <Typography variant="h6" color="secondary">
         4. You win if you find all the pairs
