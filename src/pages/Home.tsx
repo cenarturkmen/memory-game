@@ -6,10 +6,20 @@ import { Table } from "../components/Table/Table";
 import { Button, Typography } from "@mui/material";
 import { HowToPlay } from "../components/HowToPlay/HowToPlay";
 import { Counter } from "../components/Counter/Counter";
+import { MyToggleButton } from "../components/ToggleButton/ToggleButton";
 
 export const Home: React.FC = () => {
   const [tableSize, setTableSize] = useState(16);
   const [isGameStarted, setIsGameStarted] = useState(false);
+  const [timeLimit, setTimeLimit] = useState(1);
+  const [isTimeLimit, setIsTimeLimit] = useState(false);
+
+  const updateTimeLimit = (timeLimit: number): void => {
+    setTimeLimit(timeLimit);
+  };
+  const updateIsTimeLimit = (isTimeLimit: boolean): void => {
+    setIsTimeLimit(isTimeLimit);
+  };
 
   console.log(tableSize);
   return (
@@ -30,6 +40,10 @@ export const Home: React.FC = () => {
             onChange={(event: any, value) => {
               setTableSize(value as number);
             }}
+          />
+          <MyToggleButton
+            updateIsTimeLimit={updateIsTimeLimit}
+            updateTimeLimit={updateTimeLimit}
           />
           <Button
             size="large"
@@ -54,11 +68,14 @@ export const Home: React.FC = () => {
             sx={{ position: "absolute", top: "1rem", left: "1rem" }}
             color="secondary"
             variant="contained"
-            onClick={() => setIsGameStarted(false)}
+            onClick={() => {
+              setIsGameStarted(false);
+              setIsTimeLimit(false);
+            }}
           >
             Back
           </Button>
-          <Counter isDone={false} isActive={true} />
+          {isTimeLimit ? <Counter isDone={false} value={timeLimit} /> : ""}
           <Table size={tableSize} />
         </>
       )}

@@ -7,10 +7,10 @@ import Dialog from "../Dialog/Dialog";
 
 interface CounterProps {
   isDone: boolean;
-  isActive: boolean;
+  value: number;
 }
 
-export const Counter: React.FC<CounterProps> = ({ isDone }) => {
+export const Counter: React.FC<CounterProps> = ({ isDone, value }) => {
   const [isActive, setIsActive] = useState(true);
   const CountdownOver = () => {
     isDone = true;
@@ -26,7 +26,7 @@ export const Counter: React.FC<CounterProps> = ({ isDone }) => {
     <div className="counter">
       {isActive ? (
         <>
-          <Countdown date={Date.now() + 1000 * 5 /*5sec*/}>
+          <Countdown date={Date.now() + 60000 * value /*(value)min*/}>
             <CountdownOver />
           </Countdown>
         </>
