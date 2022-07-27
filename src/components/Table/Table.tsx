@@ -9,9 +9,10 @@ import { EndGame } from "../EndGame/EndGame";
 
 interface TableProps {
   size: number;
+  updateIsTimeLimit: (arg: boolean) => void;
 }
 
-export const Table: React.FC<TableProps> = ({ size }) => {
+export const Table: React.FC<TableProps> = ({ size, updateIsTimeLimit }) => {
   const [cells, setCells] = useState(generateGameData(size));
   const [clickCounter, setClickCounter] = useState(0);
   const [tableDisabled, setTableDisabled] = useState(false);
@@ -100,7 +101,7 @@ export const Table: React.FC<TableProps> = ({ size }) => {
           ))}
         </div>
       ) : (
-        <EndGame />
+        <EndGame updateIsTimeLimit={updateIsTimeLimit} />
       )}
     </>
   );
