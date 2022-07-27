@@ -15,7 +15,7 @@ export const MyToggleButton: React.FC<MyToggleButonProps> = ({
   updateIsTimeLimit,
 }) => {
   const [alignment, setAlignment] = useState("nottimelimited");
-  const [timeLimit, setTimeLimit] = useState("1");
+  const [timeLimit, setTimeLimit] = useState(1);
   const [textfieldDisabled, setTextfieldDisabled] = useState(true);
   const toggleTextfieldDisabled = () =>
     setTextfieldDisabled((value: boolean) => !value); //for toggling textfieldDisabled
@@ -39,8 +39,12 @@ export const MyToggleButton: React.FC<MyToggleButonProps> = ({
     updateIsTimeLimit(newAlignment == "nottimelimited" ? false : true);
   };
   const handleChangeTime = (event: React.ChangeEvent<HTMLInputElement>) => {
-    updateTimeLimit(+event.target.value); //used + for converting string to number
-    setTimeLimit(event.target.value);
+    var timeValue = +event.target.value; //used + for converting string to number
+    if (timeValue > 1440) timeValue = 1440; //max acceptable value (1day)
+    if (timeValue < 0) timeValue = 0; //min acceptable value
+
+    setTimeLimit(timeValue);
+    updateTimeLimit(timeValue);
   };
 
   return (

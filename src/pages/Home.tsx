@@ -71,6 +71,7 @@ export const Home: React.FC = () => {
             onClick={() => {
               setIsGameStarted(false);
               setIsTimeLimit(false);
+              setTimeLimit(1);
             }}
           >
             Back
