@@ -83,7 +83,7 @@ export const Home: React.FC = () => {
             Back
           </Button>
           {isTimeLimit ? <Counter isDone={false} value={timeLimit} /> : ""}
-          <Table size={tableSize} />
+          <Table size={tableSize} updateIsTimeLimit={updateIsTimeLimit} />
         </>
       )}
     </div>

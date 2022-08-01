@@ -3,9 +3,12 @@ import React from "react";
 import "./EndGame.scss";
 import { EndGameAnimation } from "../EndGameAnimation/EndGameAnimation";
 
-interface EndGameProps {}
+interface EndGameProps {
+  updateIsTimeLimit: (arg: boolean) => void;
+}
 
-export const EndGame: React.FC<EndGameProps> = ({}) => {
+export const EndGame: React.FC<EndGameProps> = ({ updateIsTimeLimit }) => {
+  updateIsTimeLimit(false);
   return (
     <div>
       <Typography variant="h2" color="secondary" align="center">
@@ -14,7 +17,7 @@ export const EndGame: React.FC<EndGameProps> = ({}) => {
       <Typography variant="h5" color="secondary" align="center">
         some fireworks will be here
       </Typography>
-      <EndGameAnimation />      
+      <EndGameAnimation />
     </div>
   );
 };
