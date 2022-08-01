@@ -4,13 +4,13 @@ import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import Input from "@mui/material/Input";
 import InputAdornment from "@mui/material/InputAdornment";
-import "./ToggleButton.scss";
+import "./TimeButtonGroup.scss";
 
-interface MyToggleButonProps {
+interface TimeButtonGroupProps {
   updateTimeLimit: (arg: number) => void;
   updateIsTimeLimit: (arg: boolean) => void;
 }
-export const MyToggleButton: React.FC<MyToggleButonProps> = ({
+export const TimeButtonGroup: React.FC<TimeButtonGroupProps> = ({
   updateTimeLimit,
   updateIsTimeLimit,
 }) => {
@@ -22,9 +22,9 @@ export const MyToggleButton: React.FC<MyToggleButonProps> = ({
 
   const [toggleButtonOneDisabled, setToggleButtonOneDisabled] = useState(true);
   const [toggleButtonTwoDisabled, setToggleButtonTwoDisabled] = useState(false);
-  const toggleToggleButtonOneDisabled = () =>
+  const buttonOneDisabled = () =>
     setToggleButtonOneDisabled((value: boolean) => !value); //for toggling toggleButtonOneDisabled
-  const toggleToggleButtonTwoDisabled = () =>
+  const buttonTwoDisabled = () =>
     setToggleButtonTwoDisabled((value: boolean) => !value); //for toggling toggleButtonTwoDisabled
 
   const handleChange = (
@@ -33,10 +33,10 @@ export const MyToggleButton: React.FC<MyToggleButonProps> = ({
   ) => {
     setAlignment(newAlignment);
     toggleTextfieldDisabled();
-    toggleToggleButtonOneDisabled();
-    toggleToggleButtonTwoDisabled();
+    buttonOneDisabled();
+    buttonTwoDisabled();
     console.log(newAlignment);
-    updateIsTimeLimit(newAlignment == "nottimelimited" ? false : true);
+    updateIsTimeLimit(newAlignment === "nottimelimited" ? false : true);
   };
   const handleChangeTime = (event: React.ChangeEvent<HTMLInputElement>) => {
     var timeValue = +event.target.value; //used + for converting string to number
@@ -50,7 +50,7 @@ export const MyToggleButton: React.FC<MyToggleButonProps> = ({
   return (
     <>
       <ToggleButtonGroup
-        color="primary"
+        color="secondary"
         value={alignment}
         exclusive
         onChange={handleChange}

@@ -6,7 +6,8 @@ import { Table } from "../components/Table/Table";
 import { Button, Typography } from "@mui/material";
 import { HowToPlay } from "../components/HowToPlay/HowToPlay";
 import { Counter } from "../components/Counter/Counter";
-import { MyToggleButton } from "../components/ToggleButton/ToggleButton";
+import { TimeButtonGroup } from "../components/TimeButtonGroup/TimeButtonGroup";
+import PsychologyIcon from "@mui/icons-material/Psychology";
 
 export const Home: React.FC = () => {
   const [tableSize, setTableSize] = useState(16);
@@ -26,7 +27,12 @@ export const Home: React.FC = () => {
     <div className="home">
       {!isGameStarted ? (
         <>
-          <Typography sx={{ marginTop: "5rem" }} variant="h3" color="primary">
+          <Typography variant="h3" color="primary">
+            <PsychologyIcon sx={{ width: "60px", height: "60px" }} />
+            Memory Game
+          </Typography>
+
+          <Typography sx={{ marginTop: "5rem" }} variant="h4" color="secondary">
             Select a table size:
           </Typography>
           <Slider
@@ -41,7 +47,7 @@ export const Home: React.FC = () => {
               setTableSize(value as number);
             }}
           />
-          <MyToggleButton
+          <TimeButtonGroup
             updateIsTimeLimit={updateIsTimeLimit}
             updateTimeLimit={updateTimeLimit}
           />
